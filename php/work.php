@@ -18,7 +18,7 @@ if(isset($_GET['login'])){
       ?>
 <div class="card m-2 <?=$message['id']==$_SESSION['userdata']['id']?'float-end bg-info  ':''?>" style="width: 18rem;">
 <div class="card-body">
-<?=$message['id']!=$_SESSION['userdata']['id']?'<h5 class="card-title">'.$message['full_name'].'</h5 class="card-subtitle mb-2">':'You : '.$message['full_name']?>
+<?=$message['id']!=$_SESSION['userdata']['id']?'<h5 class="card-title"> <i class="fas fa-user-alt text text-success mr-2"></i>'.$message['full_name'].'</h5 class="card-subtitle mb-2">':'You : '.$message['full_name']?>
 <h6 class="card-subtitle mb-2 text-danger"><?=date('d M Y, h:i A',strtotime($message['created_at']))?></h6>
 <p class="card-text"><?=$message['message']?></p>
 </div>
@@ -30,9 +30,9 @@ if(isset($_GET['login'])){
 
   if(isset($_GET['sendmessage']) && isset($_SESSION['user']) && $_SESSION['user']==true){
 
-    $data['user_id']=$_SESSION['userdata']['id'];
+$data['user_id']=$_SESSION['userdata']['id'];
 $data['message']=$_POST['message'];
-if(!sendMessage($data)){
+if(!sendmessage($data)){
 echo "<script>alert('enter something first')</script>";
 }
 
@@ -53,16 +53,20 @@ updateTypingStatus($data);
       echo $user['full_name'];
       echo count($data)>1?',':'';
     }
+
+    
 if(count($data)>0){
   echo" is Active..";
  
   echo " is typing...";
 
 }
-else{
-  echo "everyone is offline";
+    
+    
+    
 }
-    
-    
-    
-      }
+//else
+//{
+//  echo '<p class="text text-danger mx-2"> Active</p>';
+//}
+
