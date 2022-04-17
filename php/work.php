@@ -28,12 +28,15 @@ if(isset($_GET['login'])){
     
   }  
 
-  if(isset($_GET['sendmessage']) && isset($_SESSION['user']) && $_SESSION['user']==true){
+  if((isset($_GET['sendmessage']) && isset($_SESSION['user'])) && (($_SESSION['user'])==true)){
 
 $data['user_id']=$_SESSION['userdata']['id'];
 $data['message']=$_POST['message'];
-if(!sendmessage($data)){
-echo "<script>alert('enter something first')</script>";
+
+if(!sendMessage($data)){
+    
+echo "<script>alert('enter something')</script>";
+
 }
 
   }
