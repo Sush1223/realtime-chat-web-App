@@ -10,6 +10,9 @@ function userLogin($userdata){
         $error++;
         $data['status']=false;
         $data['message']='Enter Your Password !';
+       
+
+
     }
     if($userdata['email_id']==''){
         $error++;
@@ -50,7 +53,55 @@ if($userdata['password']==''){
     $error++;
     $data['status']=false;
     $data['message']='Enter Your Password !';
+
+   
+    
 }
+
+if(strlen($userdata['password'])<=8)
+{
+    $error++;
+    $data['status']=false;
+    $data['message']='Password should be atleast 8 characters !';
+}
+
+if(!preg_match("#[0-9]+#",$userdata['password']))
+{   $error++;
+    $data['status']=false;
+    $data['message']='Password Must Contain At Least 1 Number!';
+
+
+}
+
+if(!preg_match("#[A-Z]+#",$userdata['password']))
+{   $error++;
+    $data['status']=false;
+    $data['message']='Password Must Contain At Least 1 Capital Letter !';
+
+
+}
+
+
+if(!preg_match("#[a-z]+#",$userdata['password']))
+{   $error++;
+    $data['status']=false;
+    $data['message']='Password Must Contain At Least 1 Small Letter !';
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 if($userdata['email_id']==''){
     $error++;
     $data['status']=false;
@@ -114,6 +165,15 @@ function getMessages(){
 
 function sendMessage($data){
     $con = $GLOBALS['db'];
+    if($data['message']=='')
+    {
+        $data['status']=false;
+        //$data['message']='Please enter something';
+       //echo '<script>alert("enter something")</script>';
+    }
+    else{
+
+    
     $data['message']=mysqli_real_escape_string($con,$data['message']);
 $query = "INSERT INTO messages(user_id,message) VALUES(".$data['user_id'].",'".$data['message']."')";
 $run = mysqli_query($con,$query);
@@ -122,6 +182,8 @@ if($run){
 }else{
     return false;
 }
+
+    }
 }
 
 //typingstatus
